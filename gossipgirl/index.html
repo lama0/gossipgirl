@@ -1,0 +1,436 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Upper East Side Class - Gossip Girl Edition</title>
+  <!-- Google Fonts: NYC Vintage Style -->
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,600;0,800;1,400&family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+  
+  <style>
+    /* NYC & Gossip Girl Theme Styling */
+    :root {
+      --bg-color: #0b0c10;
+      --card-bg: #1f2833;
+      --accent-gold: #c5a059;
+      --accent-pink: #e60067;
+      --text-color: #f5f5f7;
+      --muted-text: #a0a0a0;
+      --font-header: 'Playfair Display', serif;
+      --font-body: 'Poppins', sans-serif;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    
+    body {
+      background-color: var(--bg-color);
+      color: var(--text-color);
+      font-family: var(--font-body);
+      background-image: radial-gradient(circle, rgba(197, 160, 89, 0.05) 1px, transparent 1px);
+      background-size: 20px 20px;
+      min-height: 100vh;
+    }
+
+    header {
+      text-align: center;
+      padding: 40px 20px 20px;
+      border-bottom: 1px solid var(--accent-gold);
+    }
+
+    header h1 {
+      font-family: var(--font-header);
+      font-size: 2.8rem;
+      color: var(--accent-gold);
+      letter-spacing: 2px;
+      text-transform: uppercase;
+    }
+
+    header p {
+      font-style: italic;
+      color: var(--accent-pink);
+      margin-top: 5px;
+    }
+
+    /* Layout Containers */
+    .container {
+      max-width: 1000px;
+      margin: 30px auto;
+      padding: 0 20px;
+    }
+
+    .hidden { display: none !important; }
+
+    /* Cards & Boxes */
+    .card {
+      background: var(--card-bg);
+      border: 1px solid rgba(197, 160, 89, 0.3);
+      border-radius: 12px;
+      padding: 25px;
+      margin-bottom: 25px;
+      box-shadow: 0 8px 20px rgba(0,0,0,0.4);
+    }
+
+    h2 {
+      font-family: var(--font-header);
+      color: var(--accent-gold);
+      margin-bottom: 15px;
+      border-bottom: 1px dashed var(--accent-gold);
+      padding-bottom: 8px;
+    }
+
+    /* Form Inputs & Buttons */
+    input, select, textarea, button {
+      width: 100%;
+      padding: 12px;
+      margin-top: 10px;
+      border-radius: 6px;
+      border: 1px solid var(--accent-gold);
+      background-color: #12151e;
+      color: var(--text-color);
+      font-family: var(--font-body);
+    }
+
+    button {
+      background-color: var(--accent-gold);
+      color: #000;
+      font-weight: 600;
+      cursor: pointer;
+      transition: 0.3s ease;
+      border: none;
+      margin-top: 15px;
+    }
+
+    button:hover {
+      background-color: var(--accent-pink);
+      color: #fff;
+    }
+
+    /* Tabs Navigation */
+    .nav-tabs {
+      display: flex;
+      gap: 10px;
+      margin-bottom: 25px;
+      justify-content: center;
+      flex-wrap: wrap;
+    }
+
+    .tab-btn {
+      width: auto;
+      padding: 10px 20px;
+      background: transparent;
+      border: 1px solid var(--accent-gold);
+      color: var(--accent-gold);
+      margin: 0;
+    }
+
+    .tab-btn.active {
+      background: var(--accent-gold);
+      color: #000;
+    }
+
+    /* Chat Area */
+    .chat-box {
+      height: 300px;
+      overflow-y: auto;
+      border: 1px solid rgba(255,255,255,0.1);
+      padding: 15px;
+      border-radius: 8px;
+      background-color: #0c0e14;
+      margin-bottom: 10px;
+    }
+
+    .chat-message {
+      margin-bottom: 12px;
+      font-size: 0.95rem;
+    }
+
+    .chat-message .user {
+      color: var(--accent-pink);
+      font-weight: 600;
+    }
+
+    /* Poll Cards */
+    .poll-item {
+      background-color: #12151e;
+      padding: 15px;
+      border-radius: 8px;
+      margin-top: 15px;
+      border-left: 4px solid var(--accent-gold);
+    }
+
+    .deadline-tag {
+      font-size: 0.8rem;
+      color: var(--accent-pink);
+      margin-top: 5px;
+    }
+
+    footer {
+      text-align: center;
+      padding: 30px;
+      font-family: var(--font-header);
+      color: var(--muted-text);
+      font-size: 0.9rem;
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <h1>XOXO, GOSSIP GIRL</h1>
+    <p>Your one and only source into the scandalous lives of Manhattan's elite class...</p>
+  </header>
+
+  <div class="container">
+
+    <!-- Auth / Student Claim Section -->
+    <div id="auth-section" class="card">
+      <h2>Welcome to the Upper East Side</h2>
+      <p style="color: var(--muted-text); font-size: 0.9rem;">Select your identity and set your account details.</p>
+      
+      <label style="margin-top: 15px; display: block;">Select Your Name:</label>
+      <select id="student-select">
+        <option value="" disabled selected>-- Choose Student Name --</option>
+        <option value="Sarah">Sarah</option>
+        <option value="Noura">Noura</option>
+        <option value="Lama">Lama</option>
+        <option value="Reem">Reem</option>
+        <option value="Haya">Haya</option>
+        <!-- Add rest of class names here -->
+      </select>
+
+      <input type="text" id="username-input" placeholder="Create Unique Username">
+      <input type="password" id="password-input" placeholder="Create Secret Password">
+      
+      <button onclick="loginUser()">Enter NYC Realm</button>
+    </div>
+
+    <!-- Main Dashboard Section (Hidden until Login) -->
+    <div id="main-section" class="hidden">
+      
+      <!-- Navigation -->
+      <div class="nav-tabs">
+        <button class="tab-btn active" onclick="switchTab('newsletter')">Newsletter</button>
+        <button class="tab-btn" onclick="switchTab('polls')">Polls & Voting</button>
+        <button class="tab-btn" onclick="switchTab('chat')">Live Gossip Chat</button>
+        <button class="tab-btn" onclick="switchTab('suggestions')">Suggestions</button>
+      </div>
+
+      <!-- Tab 1: Newsletter -->
+      <div id="tab-newsletter" class="tab-content">
+        <div class="card">
+          <h2>🔥 The Drama Feed</h2>
+          <p>Spotted at the school hallway: Big secrets are unfolding this week...</p>
+        </div>
+
+        <div class="card">
+          <h2>👑 Weekly Best Friends Vote</h2>
+          <p style="color: var(--muted-text);">Admin's Top Picks for this week:</p>
+          <div style="margin-top: 10px;">
+            <input type="radio" id="pair1" name="bf" value="Sarah & Noura">
+            <label for="pair1"> Sarah & Noura</label><br><br>
+            <input type="radio" id="pair2" name="bf" value="Lama & Reem">
+            <label for="pair2"> Lama & Reem</label><br><br>
+            <input type="radio" id="pair3" name="bf" value="Haya & Reem">
+            <label for="pair3"> Haya & Reem</label>
+          </div>
+          <button onclick="alert('Vote Submitted!')">Cast BFF Vote</button>
+        </div>
+
+        <div class="card">
+          <h2>📅 Real Weekly Schedule</h2>
+          <p>• Wednesday: History Quiz</p>
+          <p>• Thursday: Group Project Deadline</p>
+        </div>
+      </div>
+
+      <!-- Tab 2: Custom Polls -->
+      <div id="tab-polls" class="tab-content hidden">
+        <div class="card">
+          <h2>Create a Custom Poll</h2>
+          <input type="text" id="poll-topic" placeholder="Poll Question (e.g. Where are we hanging out?)">
+          <input type="text" id="poll-options" placeholder="Options separated by comma (e.g. Cafe, Mall, Park)">
+          <label style="margin-top:10px; display:block;">Deadline:</label>
+          <input type="datetime-local" id="poll-deadline">
+          <button onclick="createPoll()">Publish Poll</button>
+        </div>
+
+        <div class="card">
+          <h2>Active Polls</h2>
+          <div id="polls-list"></div>
+        </div>
+      </div>
+
+      <!-- Tab 3: Live Chat with Banned Words Filter -->
+      <div id="tab-chat" class="tab-content hidden">
+        <div class="card">
+          <h2>Spotted Lounge (Live Chat)</h2>
+          <div class="chat-box" id="chat-box">
+            <div class="chat-message"><span class="user">GossipGirl:</span> Welcome to the private class room. XOXO.</div>
+          </div>
+          
+          <div id="chat-controls">
+            <input type="text" id="chat-input" placeholder="Type secret gossip...">
+            <button onclick="sendMessage()">Send Secret</button>
+          </div>
+          <p id="ban-status" style="color: red; margin-top: 10px; font-weight: bold; display: none;">
+            ⚠️ You are banned until midnight for using forbidden words. Read-only mode active.
+          </p>
+        </div>
+      </div>
+
+      <!-- Tab 4: Suggestions -->
+      <div id="tab-suggestions" class="tab-content hidden">
+        <div class="card">
+          <h2>Class Suggestion Box</h2>
+          <textarea id="suggestion-text" rows="4" placeholder="Share your ideas or feedback anonymously..."></textarea>
+          <button onclick="submitSuggestion()">Send Suggestion</button>
+        </div>
+      </div>
+
+    </div>
+
+  </div>
+
+  <footer>
+    You know you love me. XOXO, Gossip Girl.
+  </footer>
+
+  <script>
+    // System Config & State
+    let currentUser = null;
+    let isBanned = false;
+    let claimedStudents = []; // Stores already claimed names
+
+    // Forbidden Words List (Add your custom words here in lowercase)
+    const FORBIDDEN_WORDS = ["badword1", "badword2", "hate", "stupid"];
+
+    // 1. Login Function & Student Lock
+    function loginUser() {
+      const studentSelect = document.getElementById('student-select');
+      const selectedStudent = studentSelect.value;
+      const username = document.getElementById('username-input').value.trim();
+
+      if (!selectedStudent || !username) {
+        alert("Please select your identity and enter a username!");
+        return;
+      }
+
+      if (claimedStudents.includes(selectedStudent)) {
+        alert("This student identity has already been taken!");
+        return;
+      }
+
+      // Claim identity
+      claimedStudents.push(selectedStudent);
+      currentUser = { name: selectedStudent, username: username };
+
+      // Hide auth and show main app
+      document.getElementById('auth-section').classList.add('hidden');
+      document.getElementById('main-section').classList.remove('hidden');
+    }
+
+    // 2. Tab Switcher
+    function switchTab(tabName) {
+      document.querySelectorAll('.tab-content').forEach(el => el.classList.add('hidden'));
+      document.querySelectorAll('.tab-btn').forEach(el => el.classList.remove('active'));
+
+      document.getElementById(`tab-${tabName}`).classList.remove('hidden');
+      event.target.classList.add('active');
+    }
+
+    // 3. Profanity Checker & Auto-Ban System
+    function checkProfanity(text) {
+      const lowerText = text.toLowerCase();
+      return FORBIDDEN_WORDS.some(word => lowerText.includes(word));
+    }
+
+    function applyBan() {
+      isBanned = true;
+      document.getElementById('chat-controls').classList.add('hidden');
+      document.getElementById('ban-status').style.display = 'block';
+    }
+
+    // 4. Chat System
+    function sendMessage() {
+      if (isBanned) return;
+
+      const chatInput = document.getElementById('chat-input');
+      const text = chatInput.value.trim();
+
+      if (!text) return;
+
+      if (checkProfanity(text)) {
+        applyBan();
+        alert("SECURITY ALERT: Forbidden word detected. You have been banned until midnight!");
+        chatInput.value = '';
+        return;
+      }
+
+      const chatBox = document.getElementById('chat-box');
+      const msgDiv = document.createElement('div');
+      msgDiv.className = 'chat-message';
+      msgDiv.innerHTML = `<span class="user">${currentUser.username} (${currentUser.name}):</span> ${text}`;
+      chatBox.appendChild(msgDiv);
+      
+      chatInput.value = '';
+      chatBox.scrollTop = chatBox.scrollHeight;
+    }
+
+    // 5. Custom Poll Creation
+    function createPoll() {
+      if (isBanned) { alert("Banned users cannot create polls."); return; }
+
+      const topic = document.getElementById('poll-topic').value;
+      const optionsStr = document.getElementById('poll-options').value;
+      const deadline = document.getElementById('poll-deadline').value;
+
+      if (!topic || !optionsStr || !deadline) {
+        alert("Please fill all poll details!");
+        return;
+      }
+
+      const options = optionsStr.split(',').map(opt => opt.trim());
+      const pollsList = document.getElementById('polls-list');
+
+      const pollDiv = document.createElement('div');
+      pollDiv.className = 'poll-item';
+      
+      let optionsHTML = '';
+      options.forEach(opt => {
+        optionsHTML += `<input type="radio" name="poll-${Date.now()}"> ${opt}<br>`;
+      });
+
+      pollDiv.innerHTML = `
+        <strong>${topic}</strong>
+        <p style="font-size:0.8rem; color:var(--muted-text);">Created by: @${currentUser.username}</p>
+        <div style="margin: 10px 0;">${optionsHTML}</div>
+        <div class="deadline-tag">⏰ Closes at: ${new Date(deadline).toLocaleString()}</div>
+      `;
+
+      pollsList.appendChild(pollDiv);
+      
+      // Reset inputs
+      document.getElementById('poll-topic').value = '';
+      document.getElementById('poll-options').value = '';
+    }
+
+    // 6. Suggestions System
+    function submitSuggestion() {
+      if (isBanned) { alert("Banned users cannot submit suggestions."); return; }
+      
+      const text = document.getElementById('suggestion-text').value.trim();
+      if (!text) return;
+
+      if (checkProfanity(text)) {
+        applyBan();
+        alert("Forbidden words detected in suggestion. Account banned.");
+        return;
+      }
+
+      alert("Suggestion submitted to the Gossip Girl vault!");
+      document.getElementById('suggestion-text').value = '';
+    }
+  </script>
+
+</body>
+</html>
