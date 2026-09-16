@@ -71,6 +71,7 @@
       display: flex;
       justify-content: space-around;
       padding: 6px 0;
+      flex-wrap: wrap;
     }
 
     nav button {
@@ -96,9 +97,14 @@
       min-height: 500px;
     }
 
+    @media (max-width: 768px) {
+      .main-body { flex-direction: column; }
+      .sidebar { width: 100% !important; border-right: none !important; border-bottom: 2px solid var(--border-color); }
+    }
+
     /* Left Y2K Sidebar */
     .sidebar {
-      width: 240px;
+      width: 250px;
       background: #fce8f1;
       border-right: 2px solid var(--border-color);
       padding: 15px;
@@ -118,6 +124,30 @@
       color: #555;
       margin-bottom: 20px;
       line-height: 1.3;
+    }
+
+    /* Song Widget Box */
+    .song-box {
+      border: 1px dashed var(--pink-text);
+      background: #fff;
+      padding: 10px;
+      border-radius: 6px;
+      text-align: center;
+      margin-bottom: 20px;
+    }
+
+    .song-title {
+      font-weight: bold;
+      color: var(--pink-text);
+      font-size: 1rem;
+    }
+
+    /* Rules Box */
+    .rules-list {
+      font-size: 0.85rem;
+      margin-left: 15px;
+      line-height: 1.5;
+      color: #333;
     }
 
     /* Content Area */
@@ -147,7 +177,7 @@
       width: 100%;
       padding: 8px;
       margin-top: 6px;
-      border: 1px solid #a00040; 
+      border: 1px solid #a00040;
       background: #fff;
       font-family: 'Trebuchet MS', sans-serif;
     }
@@ -211,14 +241,28 @@
       
       <!-- Y2K Sidebar -->
       <div class="sidebar">
+        
+        <!-- SONG OF THE WEEK -->
+        <div class="sidebar-title">song of the week 🎵</div>
+        <div class="song-box">
+          <div class="song-title">🎧 "Glamorous" - Fergie</div>
+          <p style="font-size: 0.75rem; color: #777; margin-top: 4px;">Class Anthem of the Week</p>
+        </div>
+
+        <!-- CLASS RULES -->
+        <div class="sidebar-title">class rules 📜</div>
+        <ul class="rules-list">
+          <li><b>1. Respect First:</b> الاحترام المتبادل أساس كل شيء هنا.</li>
+          <li><b>2. Keep it Fun:</b> الموقع للمتعة والضحك فقط بدون تجريح.</li>
+          <li><b>3. No Forbidden Topics:</b> يمنع الحديث عن الدراسة، الاختبارات، والقدرات تماماً!</li>
+          <li><b>4. Auto-Ban System:</b> استخدام أي كلمة محظورة يؤدي للحظر التلقائي حتى منتصف الليل.</li>
+        </ul>
+
+        <hr style="margin: 15px 0; border: 0; border-top: 1px solid #d880a8;">
+
         <div class="sidebar-title">welcome</div>
         <div class="sidebar-desc">
           Welcome to Gossip Girl! The site ABOUT the class, FOR the class and BY the class!
-        </div>
-
-        <div class="sidebar-title">gossip</div>
-        <div class="sidebar-desc">
-          The latest and greatest 411 on all the 'in' people in our classroom.
         </div>
       </div>
 
@@ -289,8 +333,8 @@
 
             <div class="card">
               <div class="card-title">3. REAL WEEKLY SCHEDULE</div>
-              <p>• Thursday: Project Submission</p>
-              <p>• Sunday: History Quiz</p>
+              <p>• Thursday: Fun Day</p>
+              <p>• Sunday: Chill Out</p>
             </div>
           </div>
 
@@ -350,8 +394,16 @@
     let isBanned = false;
     let claimed = [];
 
-    // Add your forbidden words here in lowercase
-    const BANNED_WORDS = ["badword1", "badword2"];
+    // Complete Banned Words List
+    const BANNED_WORDS = [
+      "67", "six seven", "fuck", "bitch", "bitchy", "shit", "shitty", "cunt", 
+      "whore", "ass", "hoe", "كلي زق", "كلي زقين", "كل زق", "كل زقين", 
+      "كلبه", "ملعونه", "خايسه", "اكرهك", "بضربك", "قبيحه", "قحبه", "حماره", 
+      "مياو", "كلب", "قدرات", "تحصيلي", "بترول", "جامعه", "قياس", "سديد", 
+      "مبكر", "المبكر", "النسبه", "مس ساره", "مس سارا", "الاداره", 
+      "استاذه ساره", "استاذه سارا", "انسه ساره", "انسه سارا", "دبه", "نحيفه", 
+      "نحيف", "دب", "pussy", "fat", "fatty", "ح"
+    ];
 
     function login() {
       const student = document.getElementById('student-select').value;
@@ -376,7 +428,8 @@
     }
 
     function checkBadWords(text) {
-      return BANNED_WORDS.some(w => text.toLowerCase().includes(w));
+      const lowerText = text.toLowerCase();
+      return BANNED_WORDS.some(w => lowerText.includes(w.toLowerCase()));
     }
 
     function banUser() {
